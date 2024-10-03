@@ -1,0 +1,21 @@
+<ion-content class="ion-padding">
+
+  <h3>{{ 'CARRIER_NEW' | translate }}</h3>
+
+  <ion-list>
+
+    <ion-item>
+      <ion-input [(ngModel)]="title" placeholder="{{ 'CARRIER_TITLE' | translate }}" type="text" value=""></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-textarea [(ngModel)]="note" placeholder="{{ 'CARRIER_NOTE' | translate }}" rows="10"></ion-textarea>
+    </ion-item>
+
+    <ion-button (click)="create()"
+                [disabled]="title.length < 4 || (title === params.get('title') && note === params.get('note'))"
+                class="round" color="primary">{{ titleButton }}</ion-button>
+
+  </ion-list>
+
+</ion-content>

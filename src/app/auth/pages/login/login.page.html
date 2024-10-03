@@ -1,0 +1,36 @@
+<ion-content class="ion-padding">
+  <form (submit)="doLogin()">
+    <ion-list style="text-align: center">
+
+
+      <ion-item lines="none" style="margin-bottom: 40px">
+        <ion-img [src]="'../../assets/img/logo_'+lang+'.svg'"></ion-img>
+      </ion-item>
+
+      <ion-item class="rounded" lines="none" style="width: 350px">
+        <ion-label>Utilisateur</ion-label>
+        <ion-select [(ngModel)]="userSelected" [disabled]="afsService.users.length === 0"
+                    [ngModelOptions]="{standalone: true}"
+                    cancelText="{{ 'LOGIN_CANCEL' | translate }}" style="max-width:300px!important;">
+          <ion-select-option *ngFor="let user of afsService.users"
+                             [value]="user.email">{{ user.firstname }} {{ user.lastname }}</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item class="rounded" lines="none" style="width: 350px">
+        <ion-label position="fixed">{{ 'LOGIN_PASSWORD' | translate }}</ion-label>
+        <ion-input [(ngModel)]="password" name="password" type="password"></ion-input>
+      </ion-item>
+
+      <div>
+        <ion-button [disabled]="!userSelected || password.length < 5" class="button-round" color="primary"
+                    style="background: var(--primary)" type="submit">
+          {{ 'LOGIN_BUTTON' | translate }}
+          <img class="icon" src="assets/icon/arrow.png">
+        </ion-button>
+      </div>
+
+    </ion-list>
+  </form>
+</ion-content>
+

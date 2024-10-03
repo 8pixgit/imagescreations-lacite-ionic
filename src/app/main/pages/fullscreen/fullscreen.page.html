@@ -1,0 +1,13 @@
+<app-header></app-header>
+<ion-content>
+  <ion-icon (click)="closePage()" name="close-outline"></ion-icon>
+  <div *ngIf="!showVideo" class="background"></div>
+  <div class="video-container">
+    <video #video autoplay loop playsinline preload="auto">
+      <source src="{{ user.lang === 'fr' ? 'assets/video/lacite_FR.mov' : 'assets/video/lacite_UK.mov' }}">
+    </video>
+  </div>
+
+
+</ion-content>
+

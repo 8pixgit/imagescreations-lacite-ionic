@@ -1,0 +1,114 @@
+<app-header></app-header>
+<ion-content>
+
+  <div
+    *ngIf="currentPage === 'accessibility' || currentPage === 'destination_gallery' || currentPage === 'must-see' || currentPage === 'econ' || currentPage === 'hebergements' || currentPage === 'gala' || currentPage === 'charter' || currentPage === 'pre-post-tour'"
+    style="height: 100%">
+
+    <div class="keys {{ currentPage }}">
+      <div *ngFor="let key of (user.lang === 'fr' ? keys : englishKeys)" class="key">
+        <div class="number">{{ key.number }}</div>
+        <div class="string">{{ key.string }}</div>
+      </div>
+    </div>
+
+
+
+    <ion-list *ngIf="documentsOpen" class="documentsList">
+      <div *ngFor="let document of documents | orderBy: 'name' : false : true" class="list">
+        <ion-item *ngIf="document.language.toLowerCase() === user.lang" lines="none">
+          <ion-label>
+            <a (click)="openDocument($event, document)" [href]="document.localUrl" slot="start"
+               target="_blank">{{ document.name }}</a>
+          </ion-label>
+          <ion-img (click)="carrier.addToCarrier(document)" class="icon" slot="end"
+                   src="assets/icon/send.png"></ion-img>
+        </ion-item>
+      </div>
+    </ion-list>
+
+    <swiper (slideChange)="slideChanged($event)" (swiper)="setSwiperInstance($event) "
+            *ngIf="currentPage !== 'accessibility'"
+            class="slide-zoom">
+
+      <ng-template *ngFor="let photo of photos" swiperSlide>
+        <div (press)="photoPressed(photo)"
+             [ngStyle]="{'background-image':'linear-gradient(-180deg, transparent 80%, rgba(40, 40, 40, 0.8) 100%), url(' + photo.localUrl + ')'}"
+             class="image"></div>
+        <div class="legend">
+          <p>{{ user.lang === 'fr' ? photo.legend1 : photo.englishLegend1 }}</p>
+          <span *ngIf="user.lang === 'fr' ? photo.legend2 : photo.englishLegend2">|</span>
+          <p
+            *ngIf="user.lang === 'fr' ? photo.legend2 : photo.englishLegend2">{{ user.lang === 'fr' ? photo.legend2 : photo.englishLegend2 }}</p>
+        </div>
+      </ng-template>
+
+      <!--  <ng-template *ngIf="currentPage === 'charter'" swiperSlide>
+          <video #videoOne loop playsinline preload="auto">
+            <source src="assets/video/chartre.mov">
+          </video>
+        </ng-template>-->
+
+    </swiper>
+
+    <video #video2 *ngIf="currentPage === 'accessibility'" autoplay playsinline preload="auto">
+      <source src="assets/video/carte-cite.mov">
+    </video>
+    <div *ngIf="!showVideo && currentPage === 'accessibility'" class="background"></div>
+
+  </div>
+
+  <map *ngIf="currentPage === 'Map'" [option]="mapOption"></map>
+
+  <div class="right-menu">
+    <li (click)="goToOtherPage('accessibility')" [ngClass]="{ 'active': currentPage === 'accessibility' }">
+      <img class="menu-icon" src="assets/icon/destination/plane.png">
+      <div class="category-hover">
+        <p><span>{{ 'DESTINATION_TITLE1' | translate }}</span></p>
+      </div>
+    </li>
+    <li (click)="goToOtherPage('Map')" [ngClass]="{ 'active': currentPage === 'Map' }">
+      <img class="menu-icon" src="assets/icon/destination/map.png">
+      <div class="category-hover">
+        <p><span>{{ 'DESTINATION_TITLE2' | translate }}</span></p>
+      </div>
+    </li>
+    <li (click)="goToOtherPage('econ')" [ngClass]="{ 'active': currentPage === 'econ' }">
+      <img class="menu-icon" src="assets/icon/destination/economy.png">
+      <div class="category-hover">
+        <p><span>{{ 'DESTINATION_TITLE3' | translate }}</span></p>
+      </div>
+    </li>
+    <li (click)="goToOtherPage('must-see')" [ngClass]="{ 'active': currentPage === 'must-see' }">
+      <img class="menu-icon" src="assets/icon/destination/elephant.png">
+      <div class="category-hover">
+        <p><span>{{ 'DESTINATION_TITLE4' | translate }}</span></p>
+      </div>
+    </li>
+    <li (click)="goToOtherPage('hebergements')" [ngClass]="{ 'active': currentPage === 'hebergements' }">
+      <img class="menu-icon" src="assets/icon/destination/sofa.png">
+      <div class="category-hover">
+        <p><span>{{ 'DESTINATION_TITLE5' | translate }}</span></p>
+      </div>
+    </li>
+    <li (click)="goToOtherPage('gala')" [ngClass]="{ 'active': currentPage === 'gala' }">
+      <img class="menu-icon" src="assets/icon/destination/gala.png">
+      <div class="category-hover">
+        <p><span>{{ 'DESTINATION_TITLE6' | translate }}</span></p>
+      </div>
+    </li>
+    <li (click)="goToOtherPage('charter')" [ngClass]="{ 'active': currentPage === 'charter' }">
+      <img class="menu-icon" src="assets/icon/destination/camera.png">
+      <div class="category-hover">
+        <p><span>{{ 'DESTINATION_TITLE7' | translate }}</span></p>
+      </div>
+    </li>
+    <li (click)="goToOtherPage('pre-post-tour')" [ngClass]="{ 'active': currentPage === 'pre-post-tour' }">
+      <img class="menu-icon" src="assets/icon/destination/sign.png">
+      <div class="category-hover">
+        <p><span>{{ 'DESTINATION_TITLE8' | translate }}</span></p>
+      </div>
+    </li>
+  </div>
+
+</ion-content>

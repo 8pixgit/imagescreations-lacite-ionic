@@ -1,0 +1,22 @@
+<app-header></app-header>
+<ion-content>
+
+  <!--<img class="filigram mini left" src="assets/icon/filigram2-left.png">
+  <img class="filigram mini right" src="assets/icon/filigram2-right.png">-->
+
+  <div class="wrapper">
+    <div (click)="goToOtherPage('destination')" class="box destination">
+      <p>{{ 'TABS_1' | translate}}</p>
+    </div>
+    <div (click)="goToOtherPage('services')" class="box services">
+      <p>{{ 'TABS_4' | translate}}</p>
+    </div>
+    <div (click)="goToOtherPage('spaces')" class="box spaces">
+      <p>{{ 'TABS_3' | translate}}</p>
+    </div>
+    <div (click)="goToOtherPage('lacite')" class="box cite">
+      <p>{{ 'TABS_2' | translate}}</p>
+    </div>
+  </div>
+
+</ion-content>

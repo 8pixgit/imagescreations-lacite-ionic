@@ -1,0 +1,126 @@
+<script src="../../../../../../backoffice/functions/src/index.ts"></script>
+<div *ngIf="!statusNetwork" class="networkWarning">⚠️ {{ 'MAP_NOCONNEXION' | translate }}</div>
+
+<mgl-map (load)="onMapReady($event)"
+         (zoomEnd)="zoomChange()" [center]="center"
+         [style]="'mapbox://styles/mapbox/light-v10'"
+         [transformRequest]="!statusNetwork ? transformRequest : noTransformRequest"
+         [zoom]="[13]"
+         class="map-box">
+
+  <div *ngFor="let point of points; let i = index">
+
+    <mgl-marker [lngLat]="[point.coord.lng, point.coord.lat]">
+      <ion-icon [name]="pointsTypes[point.category].icon" class="{{point.category}} star{{ point.stars }}"
+                slot="start"></ion-icon>
+    </mgl-marker>
+    <ng-container>
+      <mgl-marker #myMarker [lngLat]="[point.coord.lng, point.coord.lat]">
+        <div
+          *ngIf="(point.category === 'gala' && point.otherCategory === 'must-see') || (point.otherCategory === 'gala' && point.category === 'must-see');else other_content">
+          <ion-icon name="ticket-outline"></ion-icon>
+          <ion-icon name="wine-outline"></ion-icon>
+        </div>
+        <ng-template #other_content>
+          <ion-icon [name]="pointsTypes[point.category].icon"
+                    class="{{point.category}} star{{ point.stars }}"></ion-icon>
+        </ng-template>
+      </mgl-marker>
+      <mgl-popup [closeButton]="false" [marker]="myMarker">
+        <img *ngIf="point?.file" [src]="point?.file.downloadUrl">
+        <h4>{{ user.lang === 'fr' ? point?.title : (point?.englishTitle || point?.title) }}</h4>
+        <a
+          class="mat-body-2">{{ user.lang === 'fr' ? pointsTypes[point?.category].label : pointsTypes[point?.category].englishLabel }} {{ point?.otherCategory ? (' - ' + (user.lang === 'fr' ? pointsTypes[point?.otherCategory].label : pointsTypes[point?.otherCategory].englishLabel)) : '' }}</a>
+        <div>
+          <span *ngIf="point?.capacity && point.category!=='sites'">({{ point?.capacity }} {{ 'MAP_ROOMS' | translate }}
+            )</span>
+          <ion-stars *ngIf="point?.stars" [stars]="point?.stars"></ion-stars>
+        </div>
+        <p *ngIf="point?.galaCapacity"
+           class="mat-body-1">{{ point?.galaCapacity }} {{ 'MAP_GALA_PLACES' | translate }}</p>
+        <p *ngIf="point?.cockCapacity"
+           class="mat-body-1">{{ point?.cockCapacity }} {{ 'MAP_COCKTAIL_PLACES' | translate }}</p>
+        <p *ngIf="point?.capacity && point.category!=='sites'"
+           class="mat-body-1">{{ point?.capacity }} {{ 'MAP_PLACES' | translate }}</p>
+      </mgl-popup>
+    </ng-container>
+
+    <mgl-marker #train *ngIf="i === points.length - 1 && zoom >= 12"
+                [lngLat]="[-1.5419, 47.2174]">
+      <span class="train">{{ 'MAP_TRAIN' | translate }}</span>
+    </mgl-marker>
+    <mgl-marker #lacite *ngIf="i === points.length - 1" [lngLat]="center">
+      <img class="cite" src="assets/icon/localisation.png"/>
+    </mgl-marker>
+
+  </div>
+
+  <mgl-marker #train *ngIf="points.length === 0 && zoom >= 12" [lngLat]="[-1.5419, 47.2174]">
+    <span class="train">{{ 'MAP_TRAIN' | translate }}</span>
+  </mgl-marker>
+  <mgl-marker #lacite *ngIf="points.length === 0" [lngLat]="center">
+    <img class="cite" src="assets/icon/localisation.png"/>
+  </mgl-marker>
+
+</mgl-map>
+
+<ion-list *ngIf="statusNetwork" class="filters {{ filterOpen }}">
+  <ion-button (click)="toggleFilters()" class="toggle-filters">
+    <ion-icon name="arrow-back-outline" slot="start"></ion-icon>
+  </ion-button>
+  <ion-item (click)="activeCategory('must-see')" [ngClass]="{'active': categories['must-see']}">
+    <ion-icon name="ticket-outline" slot="start"></ion-icon>
+    {{ 'MAP_ADVANTAGES' | translate }}
+  </ion-item>
+  <ion-item (click)="activeCategory('sites')" [ngClass]="{'active': categories['sites']}">
+    <ion-icon name="star" slot="start"></ion-icon>
+    {{ 'MAP_SITES' | translate }}
+  </ion-item>
+  <ion-item (click)="activeCategory('hotel')" [ngClass]="{'active': categories['hotel']}">
+    <ion-icon name="bed-outline" slot="start"></ion-icon>
+    {{ 'MAP_HOTELS' | translate }}
+  </ion-item>
+  <ion-item>
+    <ion-list class="hotels-filters">
+      <ion-item (click)="activeHotels(5)" *ngIf="hotelsStars[5] > 0"
+                [ngClass]="{'active': starsFilter === 5 || (categories['hotel'] && starsFilter === null)}">
+        <ion-icon class="hotel star5" name="bed-outline" slot="start"></ion-icon>
+        <ion-stars [stars]="5"></ion-stars>
+      </ion-item>
+
+      <ion-item (click)="activeHotels(4)" *ngIf="hotelsStars[4] > 0"
+                [ngClass]="{'active': starsFilter === 4 || (categories['hotel'] && starsFilter === null)}">
+        <ion-icon class="hotel star4" name="bed-outline" slot="start"></ion-icon>
+        <ion-stars [stars]="4"></ion-stars>
+      </ion-item>
+      <ion-item (click)="activeHotels(3)" *ngIf="hotelsStars[3] > 0"
+                [ngClass]="{'active': starsFilter === 3 || (categories['hotel'] && starsFilter === null)}">
+        <ion-icon class="hotel star3" name="bed-outline" slot="start"></ion-icon>
+        <ion-stars [stars]="3"></ion-stars>
+      </ion-item>
+      <ion-item (click)="activeHotels(2)" *ngIf="hotelsStars[2] > 0"
+                [ngClass]="{'active': starsFilter === 2 || (categories['hotel'] && starsFilter === null)}">
+        <ion-icon class="hotel star2" name="bed-outline" slot="start"></ion-icon>
+        <ion-stars [stars]="2"></ion-stars>
+      </ion-item>
+      <ion-item (click)="activeHotels(1)" *ngIf="hotelsStars[1] > 0"
+                [ngClass]="{'active': starsFilter === 1 || (categories['hotel'] && starsFilter === null)}">
+        <ion-icon class="hotel star1" name="bed-outline" slot="start"></ion-icon>
+        <ion-stars [stars]="1"></ion-stars>
+      </ion-item>
+    </ion-list>
+  </ion-item>
+
+  <ion-item (click)="activeCategory('gala')" [ngClass]="{'active': categories['gala']}">
+    <ion-icon name="wine-outline" slot="start"></ion-icon>
+    {{ 'MAP_GALA' | translate }}
+  </ion-item>
+  <ion-item (click)="activeCategory('pre-post-tour')" [ngClass]="{'active': categories['pre-post-tour']}">
+    <ion-icon name="pin-outline" slot="start"></ion-icon>
+    Pre post tour
+  </ion-item>
+  <ion-item (click)="activeCategory('other')" [ngClass]="{'active': categories['other']}">
+    <ion-icon name="radio-button-on-outline" slot="start"></ion-icon>
+    {{ 'MAP_OTHER' | translate }}
+  </ion-item>
+</ion-list>

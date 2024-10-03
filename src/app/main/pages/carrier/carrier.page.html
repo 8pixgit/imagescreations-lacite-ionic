@@ -1,0 +1,42 @@
+<app-header></app-header>
+<ion-content class="ion-padding">
+
+  <img class="filigram mini left" src="assets/icon/filigram.png">
+
+  <div *ngIf="carrierService.currentUser.carriers" class="actions">
+    <div class="rounded">
+      <ion-select (ionChange)="changeUser(user)" [(ngModel)]="user.email" [ngModelOptions]="{standalone: true}">
+        <ion-select-option *ngFor="let user of afsService.users"
+                    [value]="user.email">{{ user.firstname }} {{ user.lastname }}</ion-select-option>
+      </ion-select>
+    </div>
+    <ion-button (click)="carrierService.newCarrier()" class="new round" color="primary">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-button>
+  </div>
+
+  <div class="space-header">
+    <img src="assets/icon/lacite.png">
+    <h2>{{ 'CARRIERPAGE_TITLE' | translate }}</h2>
+  </div>
+
+  <div *ngIf="carrierService.currentUser.carriers" class="carrier">
+    <app-expandable (carrierDeleted)="deleteCarrier(i)"
+                    (carrierEdited)="editCarrier(i)" (carrierLocked)="lockCarrier(i) " (carrierSended)="sendCarrier(i) "
+                    (fileDeleted)="deleteFile($event, i)"
+                    *ngFor="let carrier of carrierService.currentUser.carriers.slice(0, limitNb); let i = index"
+                    [date]="carrier.creationDate"
+                    [files]="carrier.files" [lock]="carrier.lock" [note]="carrier.note"
+                    [title]="carrier.title "></app-expandable>
+  </div>
+
+  <div class="button-container">
+    <ion-button
+      (click)="loadMore()"
+      *ngIf="carrierService.currentUser.carriers.length > 4 && limitNb < carrierService.currentUser.carriers.length"
+      class="round" color="primary">{{ 'CARRIER_MORE' | translate }}
+      <ion-icon name="chevron-down-outline"></ion-icon>
+    </ion-button>
+  </div>
+
+</ion-content>

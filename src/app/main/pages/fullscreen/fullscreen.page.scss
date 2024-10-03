@@ -1,0 +1,39 @@
+
+ion-content {
+  background-color: var(--primary-dark);
+  margin: 0 !important;
+}
+
+.video-container {
+  background-color: var(--primary-dark);
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  overflow: hidden;
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+}
+
+.background {
+  background-color: var(--primary-dark);
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  overflow: hidden;
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+}
+
+ion-icon {
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+  position: absolute;
+  right: 4%;
+  top: 4%;
+  z-index: 1;
+}

@@ -1,0 +1,23 @@
+<ion-content class="ion-padding">
+
+  <div *ngIf="!statusNetwork">
+    <h1>{{ 'SYNC_CONNEXION' | translate }}</h1>
+  </div>
+
+  <div *ngIf="statusNetwork">
+
+    <img *ngIf="newFiles !== totalFiles"
+         src="assets/icon/loader/oval.svg">
+
+    <h1 *ngIf="newFiles >0" [ngClass]="{'success': newFiles === totalFiles }">{{ newFiles }}
+      / {{ totalFiles  }} {{ 'SYNC_MAIN_SEVERAL' | translate }}</h1>
+
+    <h2 *ngIf="newFiles > 0"
+        class="new">{{ newFiles }} {{ (newFiles === 1 ? 'SYNC_NEW_ONE' : 'SYNC_NEW_SEVERAL') | translate }}</h2>
+    <h2 *ngIf="deletedFiles > 0"
+        class="delete">{{ deletedFiles }} {{ (deletedFiles === 1 ? 'SYNC_DELETE_ONE' : 'SYNC_DELETE_SEVERAL') | translate }}</h2>
+    <h2 *ngIf="deletedFolders > 0"
+        class="delete">{{ deletedFolders }} {{ (deletedFolders === 1 ? 'SYNC_DELETE_FOLDER_ONE' : 'SYNC_DELETE_FOLDER_SEVERAL') | translate }}</h2>
+  </div>
+
+</ion-content>

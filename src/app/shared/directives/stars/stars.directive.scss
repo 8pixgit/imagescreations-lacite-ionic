@@ -1,0 +1,15 @@
+:host {
+  display: flex;
+
+  ion-icon[name] {
+    background: none !important;
+    color: darken(#f0f0f0, 15) !important;
+    font-size: 18px;
+    height: 18px !important;
+    width: 16px !important;
+
+    &.star {
+      color: var(--accent) !important;
+    }
+  }
+}

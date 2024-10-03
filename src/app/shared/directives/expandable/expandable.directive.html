@@ -1,0 +1,42 @@
+<div #expandWrapper [ngClass]="{'open': expanded, 'collapsed': !expanded}" class='expand-wrapper'>
+  <div class="header">
+    <ion-icon *ngIf="lock" class="locker lock" name="lock-closed-outline"></ion-icon>
+    <ion-icon *ngIf="!lock" class="locker unlock" name="lock-open-outline"></ion-icon>
+    <h4>{{ title | titlecase }}</h4>
+    <p class="date">{{ date | date }}</p>
+    <div class="space"></div>
+    <ion-button (click)="sendCarrier()" [disabled]="!files?.length"
+                class="send-button round" color="primary" round>
+      <img class="send" src="assets/icon/send.png">
+      {{ 'DESTINATION_SEND' | translate }}
+    </ion-button>
+    <img (click)="onClick()" *ngIf="files" class="arrow" src="assets/icon/arrow_black.png">
+  </div>
+  <ion-list *ngIf="files" class="actions">
+    <ion-button (click)="lockCarrier()" slot="icon-only">
+      <img class="send" src="assets/icon/actions/lock.png">
+    </ion-button>
+    <ion-button (click)="editCarrier()" *ngIf="!lock && (files.length > 0 || note.length > 0)" ion-item
+                slot="icon-only">
+      <img class="send" src="assets/icon/actions/pen.png">
+    </ion-button>
+    <ion-button (click)="deleteCarrier()" *ngIf="!lock" ion-item slot="icon-only">
+      <img class="send" src="assets/icon/actions/trash.png">
+    </ion-button>
+  </ion-list>
+  <ion-list *ngIf="expanded && files" class="documents">
+    <ion-item *ngFor="let file of files">
+      <ion-icon *ngIf="file.title" class="image" name="camera-outline"></ion-icon>
+      <ion-icon *ngIf="file.url" class="url" name="logo-web-component"></ion-icon>
+      <a (click)="openDocument($event, file)" *ngIf="!file.url" [href]="file.downloadUrl"
+         target="_blank">{{ (user.lang === 'fr' ? file.title : file.englishTitle) || file.name }} {{ (file.title && file.legend1 && user.lang === 'fr') ? ('- ' + file.legend1) : '' }} {{ (file.englishTitle && file.englishLegend1 && user.lang !== 'fr') ? ('- ' + file.englishLegend1) : '' }}</a>
+      <a *ngIf="file.url" [href]="file.url"
+         target="_blank">{{ file.url.replace('http://', '').replace('https://', '') }}</a>
+      <ion-icon (click)="deleteFile(file)" *ngIf="!lock" name="close-outline"></ion-icon>
+    </ion-item>
+  </ion-list>
+  <div *ngIf="note && expanded" class="note">
+    <h5>{{ 'CARRIER_NOTE' | translate }}</h5>
+    <p>{{ note }}</p>
+  </div>
+</div>

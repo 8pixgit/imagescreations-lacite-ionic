@@ -1,0 +1,45 @@
+<ion-content class="ion-padding">
+
+  <h3>{{ 'SEND_CARRIER' | translate }}</h3>
+
+  <img class="flag"
+       src="{{ user.lang === 'fr' ? 'assets/icon/flags/france.png' : 'assets/icon/flags/united-kingdom.png' }}">
+
+  <ion-list>
+
+    <ion-item>
+      <ion-label>{{ 'SEND_SENDER' | translate }}</ion-label>
+      <ion-select [(ngModel)]="user.email" [ngModelOptions]="{standalone: true}">
+        <ion-select-option *ngFor="let user of afsService.users"
+                    [value]="user.email">{{ user.firstname }} {{ user.lastname }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item *ngFor="let recipient of recipients; let i = index; trackBy:trackByFn">
+      <ion-label position="fixed" >{{ 'SEND_RECIPIENTS' | translate }} {{ i + 1 }}</ion-label>
+      <ion-input [(ngModel)]="recipients[i]" type="email"></ion-input>
+      <ion-button (click)="addRecipient()" *ngIf="i === recipients.length - 1" class="add" fill="clear" color="primary"
+                  slot="icon-only"
+                  item-right>
+        <ion-icon name="add-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>CC</ion-label>
+      <ion-select [(ngModel)]="cc" [ngModelOptions]="{standalone: true}">
+        <ion-select-option *ngFor="let user of afsService.users"
+                           [value]="user.email">{{ user.firstname }} {{ user.lastname }}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-textarea [(ngModel)]="message" placeholder="{{ 'SEND_PLACEHOLDER' | translate }}" rows="4"></ion-textarea>
+    </ion-item>
+
+    <ion-button (click)="create()" [disabled]="recipients.length === 0 || recipients[0].length < 5" class="round"
+                color="primary">{{ 'DESTINATION_SEND' | translate }}</ion-button>
+
+  </ion-list>
+
+</ion-content>

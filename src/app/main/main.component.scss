@@ -1,0 +1,62 @@
+
+ion-tabs {
+  ion-tab-bar {
+    max-width: 100%;
+
+    ion-tab-button {
+      box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.13);
+      min-height: 50px;
+      position: relative;
+      transform: skewX(-15deg);
+      max-width: 100%;
+
+      ion-label {
+        color: var(--black-87);
+        font-size: 18px;
+        font-weight: 500;
+        position: relative;
+        font-family: Gunnar, serif !important;
+        top: 2px;
+        transform: skewX(15deg) !important;
+      }
+
+      &[aria-selected=true] {
+        background-color: var(--primary);
+
+        ion-label {
+          color: white;
+        }
+
+        &:last-of-type:after {
+          background-color: var(--primary);
+        }
+      }
+
+      &:last-of-type {
+        overflow: inherit;
+
+        &:after {
+          background-color: #f8f8f8;
+          content: "";
+          height: 97%;
+          position: absolute;
+          right: -15px;
+          width: 20%;
+        }
+      }
+    }
+  }
+}
+
+.active {
+  --background: var(--primary);
+}
+
+ion-item.item:hover {
+  --background: var(--primary);
+}
+
+.hidden .tabbar {
+  display: none;
+}
+

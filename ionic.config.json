@@ -1,0 +1,7 @@
+{
+  "name": "lacite",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

@@ -1,0 +1,299 @@
+:host {
+  display: block;
+  height: 100%;
+  padding-right: 50px;
+  position: relative;
+
+  .map {
+    //background-image: url("../assets/map/map.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 0;
+    height: 100%;
+    padding: 0;
+    position: static;
+    width: 100%;
+  }
+
+  .networkWarning {
+    background-color: #f39400;
+    color: white;
+    padding: 5px 0;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    z-index: 1;
+  }
+
+  .map-box {
+    height: 100%;
+
+
+    .mapboxgl-popup-content {
+      padding-bottom: 5px;
+
+      div {
+        text-align: center;
+        width: 200px;
+
+        img {
+          border-radius: 3px 3px 0 0;
+          margin-left: -10px;
+          margin-top: -10px;
+          max-width: initial;
+          width: 220px;
+        }
+
+        h4 {
+          font-size: 18px;
+          font-weight: 400;
+          margin: 4px 0;
+        }
+
+        & > div {
+          display: flex;
+          justify-content: center;
+
+          span {
+            margin-right: 10px;
+          }
+        }
+
+        .mat-body-1 {
+          margin: 2px;
+        }
+      }
+    }
+
+    .train {
+      background-color: var(--warn);;
+      border-radius: 8px;
+      color: white;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 2px 6px;
+    }
+
+    .cite {
+      width: 35px;
+    }
+  }
+
+  ion-icon[name] {
+    align-items: center;
+    border-radius: 25%;
+    color: black;
+    display: flex;
+    font-size: 16px;
+    justify-content: center;
+    min-height: 24px;
+  }
+
+  .mapboxgl-marker {
+    & > div {
+      display: flex;
+
+      ion-icon[name]:nth-child(1) {
+        background-color: var(--must-see);
+        border-bottom-right-radius: 0;
+        border-top-right-radius: 0;
+        color: white;
+      }
+
+      ion-icon[name]:nth-child(2) {
+        background-color: var(--gala);
+        border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
+        color: white;
+      }
+    }
+
+    ion-icon[name] {
+      height: 30px;
+      width: 30px;
+      color: white;
+    }
+  }
+
+  .filters {
+    background-color: white;
+    border-radius: 0 6px 6px 0;
+    box-shadow: 20px 20px 30px 0 rgba(0, 0, 0, 0.09);
+    margin-bottom: 0;
+    padding: 16px;
+    position: absolute;
+    top: calc(50% - 220px);
+    transition: var(--transition);
+    width: 232px;
+
+    &.close {
+      width: 0;
+
+      .item-block {
+        border-bottom: none;
+      }
+
+      .icon[name="arrow_left"] {
+        transform: rotate(180deg);
+      }
+    }
+
+    .toggle-filters {
+      background-color: transparent;
+      position: absolute;
+      right: -46px;
+      top: 10%;
+      z-index: 1;
+
+      .icon {
+        color: var(--black-87);
+        font-size: 80px;
+        opacity: 1;
+        transition: var(--transition);
+      }
+    }
+
+    ion-icon[name] {
+      opacity: 0.25;
+      transition: var(--transition);
+    }
+
+    & > .item-block {
+      border-bottom: 1px solid #dedede;
+
+      &:last-of-type {
+        border: none;
+      }
+
+      .item-inner {
+        border: none;
+
+        .label {
+          font-size: 14px;
+          margin: 0;
+        }
+      }
+
+      &:nth-child(2) .icon {
+        background-color: var(--must-see);
+      }
+
+      &:nth-child(3) .icon {
+        border: 1px solid var(--black-87);
+        color: var(--black-87);
+      }
+
+      &:nth-child(4) .icon {
+        background-color: var(--sites);
+      }
+
+      &:nth-child(5) .icon {
+        background-color: var(--gala);
+      }
+
+      &:nth-child(6) .icon {
+        background-color: var(--pre-post-tour);
+      }
+
+      &:nth-child(7) .icon {
+        background-color: var(--other);
+      }
+    }
+
+    .item-block.active {
+      ion-icon[name] {
+        opacity: 1;
+        color: white;
+      }
+
+      .label {
+        font-weight: 700;
+      }
+    }
+
+    .hotels-filters {
+      margin-bottom: 0;
+
+      .item-block {
+        padding-left: 24px;
+      }
+    }
+  }
+
+  ion-icon {
+    &.hotel {
+      &.star1 {
+        background-color: var(--hotel1) !important;
+        color: white;
+      }
+
+      &.star2 {
+        background-color: var(--hotel2) !important;
+        color: white;
+      }
+
+      &.star3 {
+        background-color: var(--hotel3) !important;
+        color: white;
+      }
+
+      &.star4 {
+        background-color: var(--hotel4) !important;
+        color: white;
+      }
+
+      &.star5 {
+        background-color: var(--hotel5) !important;
+        color: white;
+      }
+    }
+
+    &.must-see {
+      background-color: var(--must-see);
+      color: white;
+    }
+
+    &.pre-post-tour {
+      background-color: var(--pre-post-tour);
+      color: white;
+    }
+
+    &.gala {
+      background-color: var(--gala);
+      color: white;
+    }
+
+    &.sites {
+      background-color: var(--sites);
+      color: white;
+    }
+
+    &.other {
+      background-color: var(--other);
+      color: white;
+    }
+  }
+}
+
+.mapboxgl-marker.emergency-exit-marker-z {
+  z-index: 1;
+}
+
+.mapboxgl-marker.device-marker-z {
+  z-index: 2;
+}
+
+.mapboxgl-marker.search-marker-z {
+  z-index: 3;
+}
+
+.mapboxgl-popup {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  will-change: transform;
+  pointer-events: none;
+  z-index: 4;
+}
