@@ -23,13 +23,13 @@ import {OrderByPipe} from "./shared/pipe/orderBy";
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const HttpLoaderFactory = (http: HttpClient): TranslateHttpLoader => new TranslateHttpLoader(http);
 const configFire = {
-  apiKey: 'AIzaSyBjOhmYSH2X08xc_eUB0YjyiN9H8-c1X1s',
-  authDomain: 'bureau-des-congres.firebaseapp.com',
-  projectId: 'bureau-des-congres',
-  storageBucket: 'bureau-des-congres.appspot.com',
-  messagingSenderId: '184376833970',
-  appId: '1:184376833970:web:5d8bd4468749c2a3c356ab',
-  measurementId: 'G-38N5PNC2V1'
+  apiKey: "AIzaSyCQvVPZy7uLyc7iVTyJwtmavbeqOEGXZ1E",
+  authDomain: "la-cite-e6908.firebaseapp.com",
+  databaseURL: "https://la-cite-e6908.firebaseio.com",
+  projectId: "la-cite-e6908",
+  storageBucket: "la-cite-e6908.appspot.com",
+  messagingSenderId: "280747774387",
+  appId: "1:280747774387:web:9e4c38a5582f0e9589fbc6"
 };
 
 @NgModule({
