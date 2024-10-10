@@ -31,38 +31,31 @@ export const POINTS_TYPES = [
 
   {
     englishLabel: 'Advantages',
-    icon: 'ticket-outline',
+    icon: 'local_activity',
     id: 'must-see',
     label: 'Les atouts',
   },
   {
-    englishLabel: 'Site',
-    icon: 'star',
-    id: 'sites',
-    label: 'Sites',
-  },
-  {
     englishLabel: 'Hotels',
-    icon: 'bed-outline',
+    icon: 'hotel',
     id: 'hotel',
     label: 'Hôtels',
   },
-
   {
     englishLabel: 'Gala evenings',
-    icon: 'wine-outline',
+    icon: 'local_bar',
     id: 'gala',
     label: 'Soirées de gala',
   },
   {
     englishLabel: 'Pre post tour',
-    icon: 'pin-outline',
+    icon: 'place',
     id: 'pre-post-tour',
     label: 'Pre post tour',
   },
   {
     englishLabel: 'Other',
-    icon: 'radio-button-on-outline',
+    icon: 'fiber_manual_record',
     id: 'other',
     label: 'Autre',
   },
@@ -72,75 +65,184 @@ export const POINTS_TYPES = [
 export const SERVICES_CATEGORIES = [
 
   {
-    englishLabel: 'Your tailor-made event',
+    englishLabel: 'Welcome',
     home: true,
     icon: 'hotesse.png',
     id: 'acc_hot',
-    label: 'Vous accompagner',
+    label: 'Accueil',
   },
   {
-    englishLabel: 'Venues',
-    home: true,
+    englishLabel: 'Workshop',
     icon: 'ate.png',
     id: 'ate',
-    label: 'Sites privatisables',
+    label: 'Atelier',
   },
   {
-    englishLabel: 'Event caterers',
+    englishLabel: 'Scenic design',
     home: true,
     icon: 'configuration.png',
     id: 'conf_sce',
-    label: 'Traiteurs',
+    label: 'Configuration scène',
   },
   {
-    englishLabel: 'Event agencies',
+    englishLabel: 'Eco-friendly',
     home: true,
     icon: 'eco-responsable.png',
     id: 'eco',
-    label: 'Agences événementielles',
+    label: 'Eco-responsabilité',
   },
   {
-    englishLabel: 'Event service providers',
-    home: true,
+    englishLabel: 'Exhibition',
     icon: 'ext.png',
     id: 'exp',
-    label: 'Prestataires événementiels',
+    label: 'Exposition',
   },
   {
-    englishLabel: 'Activities',
+    englishLabel: 'Breaks',
     home: true,
     icon: 'pauses.png',
     id: 'pau',
-    label: 'Animations et activités',
-  }
+    label: 'Pauses',
+  },
+  {
+    englishLabel: 'Picture in Picture',
+    home: true,
+    icon: 'screen.png',
+    id: 'pip',
+    label: 'Picture in Picture',
+  },
+  {
+    englishLabel: 'Preview',
+    home: true,
+    icon: 'preview.png',
+    id: 'pre',
+    label: 'Préview',
+  },
+  {
+    englishLabel: 'Smart Lectern',
+    home: true,
+    icon: 'pupitre.png',
+    id: 'pup_con',
+    label: 'Pupitre connecté',
+  },
+  {
+    englishLabel: 'Catering',
+    home: true,
+    icon: 'cloche.png',
+    id: 'dej',
+    label: 'Restauration',
+  },
+  {
+    englishLabel: 'Security',
+    home: true,
+    icon: 'cadenas.png',
+    id: 'sec',
+    label: 'Sécurité',
+  },
+  {
+    englishLabel: 'Event signage',
+    home: true,
+    icon: 'signaletique.png',
+    id: 'sig',
+    label: 'Signalétique',
+  },
+  {
+    englishLabel: 'Gala evenings',
+    home: true,
+    icon: 'cocktail.png',
+    id: 'gal',
+    label: 'Soirée de gala',
+  },
+  {
+    englishLabel: 'OutfCloakroomits',
+    icon: 'ves.png',
+    id: 'ves',
+    label: 'Vestiaire',
+  },
+
 ];
 
 export const SPACES_CATEGORIES = [
 
   {
-    englishLabel: 'Castles',
+    englishLabel: 'Auditorium 450',
     id: 'aud_450',
-    label: 'Château',
+    label: 'Auditorium 450',
   },
   {
-    englishLabel: 'Unexpected',
+    englishLabel: 'Auditorium 800',
     id: 'aud_800',
-    label: 'Insolite',
+    label: 'Auditorium 800',
   },
   {
-    englishLabel: 'Water-adjacent',
+    englishLabel: 'Atlantic Club',
     id: 'clu_atl',
-    label: 'Au bord de l’eau',
+    label: 'Club Atlantique',
   },
   {
-    englishLabel: 'Close to nature',
+    englishLabel: 'Area RO',
     id: 'esp_r0',
-    label: 'Proche de la nature',
+    label: 'Espace RO',
   },
   {
-    englishLabel: 'Large event venues',
+    englishLabel: 'Area R2',
     id: 'esp_r2',
-    label: 'Grande capacité',
-  }
+    label: 'Espace R2',
+  },
+  {
+    englishLabel: 'Extensions',
+    id: 'ext',
+    label: 'Extensions',
+  },
+  {
+    englishLabel: 'Lower Foyer',
+    id: 'foy_bas',
+    label: 'Foyer Bas',
+  },
+  {
+    englishLabel: 'Great Auditorium Foyer',
+    id: 'foy_gra_aud',
+    label: 'Foyer Grand Auditorium',
+  },
+  {
+    englishLabel: 'Upper Foyer',
+    id: 'foy_hau',
+    label: 'Foyer Haut',
+  },
+  {
+    englishLabel: 'Great Auditorium',
+    id: 'gra_aud',
+    label: 'Grand Auditorium',
+  },
+  {
+    englishLabel: 'Great Gallery',
+    id: 'gra_gal',
+    label: 'Grande Galerie',
+  },
+  {
+    englishLabel: 'Great Hall',
+    id: 'gra_hal',
+    label: 'Grande Halle',
+  },
+  {
+    englishLabel: 'Indoor',
+    id: 'ind',
+    label: 'Indoor',
+  },
+  {
+    englishLabel: 'Mezzanine',
+    id: 'mez',
+    label: 'Mezzanine',
+  },
+  {
+    englishLabel: 'Outdoor',
+    id: 'out',
+    label: 'Outdoor',
+  },
+  {
+    englishLabel: 'Outfits',
+    id: 'ten',
+    label: 'Tenues',
+  },
 
 ];
