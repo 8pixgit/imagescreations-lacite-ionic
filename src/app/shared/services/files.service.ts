@@ -182,6 +182,8 @@ export class AfsService {
         xhr.send();
 
 
+
+
       } catch (e) {
         resolve({result: null, message: e});
         return null;

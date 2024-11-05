@@ -1,0 +1,43 @@
+<ion-content padding>
+
+  <img class="filigram mini left" src="assets/icon/filigram.png">
+
+  <div class="space-header">
+    <img src="assets/icon/lacite.png">
+    <h2>{{ 'TOOLBOX_TITLE' | translate }}</h2>
+  </div>
+
+  <div class="documentsContainer">
+
+    <div class="header">
+      <div (click)="activeCategory('destination')">
+        <button [disabled]="category !== 'destination'" ion-button color="primary" round>{{ 'TOOLBOX_TAB1' | translate }}</button>
+      </div>
+      <div (click)="activeCategory('city')">
+        <button [disabled]="category !== 'city'" ion-button color="primary" round>{{ 'HOME_CITE1' | translate }}</button>
+      </div>
+      <div (click)="activeCategory('spaces')">
+        <button [disabled]="category !== 'spaces'" ion-button color="primary" round>{{ 'TABS_3' | translate }}</button>
+      </div>
+      <div (click)="activeCategory('services')">
+        <button [disabled]="category !== 'services'" ion-button color="primary" round>{{ 'TABS_4' | translate }}</button>
+      </div>
+      <div *ngFor="let otherCategory of afsService.toolboxCategories" (click)="activeCategory('other', otherCategory.id)">
+        <button [ngStyle]="{'background-color':otherCategory.color}" [disabled]="id !== otherCategory.id" ion-button color="primary" round>{{ user.lang === 'fr' ? otherCategory.title : (otherCategory.englishTitle || otherCategory.title) }}</button>
+      </div>
+    </div>
+
+    <div class="documents">
+      <ion-item *ngFor="let document of documents | orderBy: 'name' : false : true">
+        <a [href]="document.downloadUrl" target="_blank" (click)="openDocument($event, document)">{{ document.name }}</a>
+        <img (click)="carrier.addToCarrier(document)" class="icon" src="assets/icon/send.png">
+      </ion-item>
+      <ion-item *ngFor="let url of urls">
+        <a [href]="url" target="_blank">{{ url }}</a>
+        <img (click)="carrier.addToCarrier(url)" class="icon" src="assets/icon/send.png">
+      </ion-item>
+    </div>
+
+  </div>
+
+</ion-content>

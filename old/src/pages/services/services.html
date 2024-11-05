@@ -1,0 +1,58 @@
+<ion-content padding>
+
+  <div *ngIf="!currentPage" class="container">
+    <div class="wrapper">
+      <div *ngFor="let service of servicesCategories; let i = index" (click)="goToService(service.id, i)" class="box">
+        <div class="content">
+          <img [src]="'assets/icon/services/' + service.icon">
+          <p>{{ user.lang === 'fr' ? service.label : service.englishLabel }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="currentPage" class="keys">
+    <div class="key" *ngFor="let key of (user.lang === 'fr' ? keys : englishKeys)">
+      <div class="number">{{ key.number }}</div>
+      <div class="string">{{ key.string }}</div>
+    </div>
+  </div>
+
+  <div *ngIf="currentPage && (user.lang === 'fr' ? documentsNb.fr > 0 : documentsNb.en > 0)" class="actions">
+    <button class="send-button" (click)="documentsOpen = documentsOpen ? !documentsOpen : true" [ngClass]="{ 'active': documentsOpen }" *ngIf="documents.length" ion-button color="primary" round>
+      <img class="send" src="assets/icon/send.png">
+      {{ 'DESTINATION_SEND' | translate }}
+      <img class="icon" src="assets/icon/arrow_b.png">
+    </button>
+  </div>
+
+  <ion-list *ngIf="currentPage && documentsOpen" class="documentsList">
+    <div class="list" *ngFor="let document of documents | orderBy: 'name' : false : true">
+      <ion-item *ngIf="document.language.toLowerCase() === user.lang">
+        <a [href]="document.downloadUrl" target="_blank" (click)="openDocument($event, document)">{{ document.name }}</a>
+        <img (click)="carrier.addToCarrier(document)" class="icon" src="assets/icon/send.png">
+      </ion-item>
+    </div>
+  </ion-list>
+
+  <ion-slides *ngIf="currentPage" pager>
+
+    <ion-slide *ngFor="let photo of photos">
+      <div (press)="photoPressed(photo)" class="image" [ngStyle]="{'background-image':'linear-gradient(
+          -180deg, transparent 80%, rgba(40, 40, 40, 0.8) 100%), url(' + (photo.localUrl || photo.downloadUrl) + ')'}"></div>
+      <div class="legend">
+        <p>{{ user.lang === 'fr' ? photo.legend1 : photo.englishLegend1 }}</p>
+        <span *ngIf="user.lang === 'fr' ? photo.legend2 : photo.englishLegend2">|</span>
+        <p *ngIf="user.lang === 'fr' ? photo.legend2 : photo.englishLegend2">{{ user.lang === 'fr' ? photo.legend2 : photo.englishLegend2 }}</p>
+      </div>
+    </ion-slide>
+
+  </ion-slides>
+
+  <div *ngIf="spaces.length > 0" class="right-menu">
+    <li [ngClass]="{ 'active': spaceActivated === space.id }" *ngFor="let space of spaces | orderBy: 'label' : false : true" (click)="activeSpace(space.id)">
+      <p>{{ user.lang === 'fr' ? space.label : space.englishLabel }}</p>
+    </li>
+  </div>
+
+</ion-content>

@@ -1,0 +1,43 @@
+@import "../../theme/base_variables.scss";
+page-login {
+  background-image: url("../assets/img/login.jpg");
+  background-size: cover;
+  .content {
+    background-color: transparent;
+    .item-inner {
+      border: none !important;
+    }
+    form {
+      align-items: center;
+      display: flex;
+      height: 100%;
+      justify-content: center;
+      position: relative;
+      & > .list {
+        align-items: center;
+        background-color: $light;
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-height: 500px;
+        padding: 60px 120px;
+        position: relative;
+        min-width: 600px;
+        width: 50%;
+        & > .item:first-of-type {
+          background-color: transparent;
+          .label {
+            background-color: transparent;
+            display: flex;
+            justify-content: center;
+            img {
+              margin-bottom: 8%;
+              width: 60%;
+            }
+          }
+        }
+      }
+    }
+  }
+}

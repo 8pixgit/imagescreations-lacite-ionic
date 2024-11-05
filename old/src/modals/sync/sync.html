@@ -1,0 +1,19 @@
+<ion-content padding>
+
+  <div *ngIf="network?.type === 'none'">
+    <h1>{{ 'SYNC_CONNEXION' | translate }}</h1>
+  </div>
+
+  <div *ngIf="network?.type !== 'none'">
+
+    <img *ngIf="currentFile < afsService.totalFiles && afsService.totalFiles > 0 && currentFile > 0" src="assets/icon/loader/oval.svg">
+
+    <h1 [ngClass]="{'success': currentFile > afsService.totalFiles - 1 && afsService.totalFiles > 0}">{{ currentFile }} / {{ afsService.totalFiles }} {{ 'SYNC_MAIN_SEVERAL' | translate }}</h1>
+
+    <h2 *ngIf="newFiles > 0" class="new">{{ newFiles }} {{ (newFiles === 1 ? 'SYNC_NEW_ONE' : 'SYNC_NEW_SEVERAL') | translate }}</h2>
+
+    <h2 *ngIf="deletedFiles > 0" class="delete">{{ deletedFiles }} {{ (deletedFiles === 1 ? 'SYNC_DELETE_ONE' : 'SYNC_DELETE_SEVERAL') | translate }}</h2>
+
+  </div>
+
+</ion-content>
