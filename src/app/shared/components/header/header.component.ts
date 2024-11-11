@@ -8,7 +8,11 @@ import {
 } from '@angular/router';
 import { MenuController, ModalController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
-import { EventService, UserService } from '../../../shared/services';
+import {
+  CarrierService,
+  EventService,
+  UserService,
+} from '../../../shared/services';
 import { SyncModal } from '../modals';
 
 @Component({
@@ -28,7 +32,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private translate: TranslateService,
     private modalCtrl: ModalController,
     private translateService: TranslateService,
-    private menu: MenuController
+    private menu: MenuController,
+    public carrier: CarrierService
   ) {
     this.lang = translateService.currentLang;
     translate.onLangChange.subscribe((lang) => {
@@ -60,7 +65,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   openPage(page: string): void {
     this.currentPage = page;
-    this.router.navigate(['/main' + page]);
+    this.router.navigate([page]);
   }
 
   changeLang(lang: string): void {

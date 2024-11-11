@@ -5,9 +5,14 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
-import { HeaderComponent } from '../main/components/header/header.component';
+import { HeaderComponent } from './components/header/header.component';
+import {
+  NewcarrierModal,
+  SendCarrierModal,
+  SyncModal,
+} from './components/modals';
 @NgModule({
-  declarations: [HeaderComponent],
+  declarations: [HeaderComponent, NewcarrierModal, SendCarrierModal, SyncModal],
   imports: [
     CommonModule,
     IonicModule,
@@ -25,6 +30,9 @@ import { HeaderComponent } from '../main/components/header/header.component';
     TranslateModule,
     IonicModule,
     HeaderComponent,
+    NewcarrierModal,
+    SendCarrierModal,
+    SyncModal,
   ],
 })
 export class SharedModule {}

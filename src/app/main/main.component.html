@@ -1,72 +1,82 @@
 <ion-app>
-
   <!-- <ion-router-outlet></ion-router-outlet>-->
   <ion-menu contentId="main" menuId="menu" side="end" swipeGesture="false">
-
-
     <ion-content>
       <ion-list>
-        <ion-item (click)="openPage('')" [class.active]="currentRoute==='/'" lines="none">
-
+        <ion-item
+          (click)="openPage('')"
+          [class.active]="currentRoute === '/'"
+          lines="none"
+        >
           <ion-icon name="home-outline" slot="start"></ion-icon>
-          {{ 'APP_HOME' | translate }}
-
+          {{ "APP_HOME" | translate }}
         </ion-item>
-        <ion-item (click)="openPage('destination')" [class.active]="currentRoute==='/destination'" lines="none">
-
+        <ion-item
+          (click)="openPage('destination')"
+          [class.active]="currentRoute === '/destination'"
+          lines="none"
+        >
           <ion-icon name="airplane-outline" slot="start"></ion-icon>
-          {{ 'TABS_1' | translate }}
-
+          {{ "TABS_1" | translate }}
         </ion-item>
-        <ion-item (click)="openPage('lacite')" [class.active]="currentRoute==='/lacite'" lines="none">
-
+        <ion-item
+          (click)="openPage('lacite')"
+          [class.active]="currentRoute === '/lacite'"
+          lines="none"
+        >
           <ion-icon name="leaf-outline" slot="start"></ion-icon>
-          {{ 'TABS_2' | translate }}
-
+          {{ "TABS_2" | translate }}
         </ion-item>
-        <ion-item (click)="openPage('spaces')" [class.active]="currentRoute==='/spaces'" lines="none">
-
+        <ion-item
+          (click)="openPage('spaces')"
+          [class.active]="currentRoute === '/spaces'"
+          lines="none"
+        >
           <ion-icon name="square-outline" slot="start"></ion-icon>
-          {{ 'TABS_3' | translate }}
+          {{ "TABS_3" | translate }}
         </ion-item>
-        <ion-item (click)="openPage('services')" [class.active]="currentRoute==='/services'" lines="none">
-
+        <ion-item
+          (click)="openPage('services')"
+          [class.active]="currentRoute === '/services'"
+          lines="none"
+        >
           <ion-icon name="trail-sign-outline" slot="start"></ion-icon>
-          {{ 'TABS_4' | translate }}
-
+          {{ "TABS_4" | translate }}
         </ion-item>
         <ion-item (click)="logout()" lines="none">
-
           <ion-icon name="exit-outline" slot="start"></ion-icon>
-          {{ 'APP_LOGOUT' | translate }}
-
+          {{ "APP_LOGOUT" | translate }}
         </ion-item>
       </ion-list>
-      <div style="position: absolute;bottom: 10px;right:10px ">version: {{version}}</div>
+      <div style="position: absolute; bottom: 10px; right: 10px">
+        version: {{ version }}
+      </div>
     </ion-content>
-
   </ion-menu>
 
   <ion-router-outlet id="main"></ion-router-outlet>
   <div style="height: 100%">
-    <ion-tabs #myTabs (ionTabsDidChange)="openPage($event.tab)" [ngClass]="{'hidden': uiHidden}"
-              slot="bottom">
+    <ion-tabs
+      *ngIf="currentRoute && currentRoute !== '/'"
+      #myTabs
+      (ionTabsDidChange)="openPage($event.tab)"
+      [ngClass]="{ hidden: uiHidden }"
+      slot="bottom"
+    >
       <ion-tab-bar slot="bottom">
         <ion-tab-button [tab]="tab1Root">
-          <ion-label>{{ 'TABS_1' | translate }}</ion-label>
+          <ion-label>{{ "TABS_1" | translate }}</ion-label>
         </ion-tab-button>
         <ion-tab-button [tab]="tab2Root">
-          <ion-label>{{ 'TABS_2' | translate }}</ion-label>
+          <ion-label>{{ "TABS_2" | translate }}</ion-label>
         </ion-tab-button>
         <ion-tab-button [tab]="tab3Root">
-          <ion-label>{{ 'TABS_3' | translate }}</ion-label>
+          <ion-label>{{ "TABS_3" | translate }}</ion-label>
         </ion-tab-button>
         <ion-tab-button [tab]="tab4Root">
-          <ion-label>{{ 'TABS_4' | translate }}</ion-label>
+          <ion-label>{{ "TABS_4" | translate }}</ion-label>
         </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>
   </div>
-
-
 </ion-app>

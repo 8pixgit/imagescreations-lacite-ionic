@@ -1,23 +1,17 @@
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
 import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 import { ExpandableDirective } from '../shared/directives/expandable/expandable.directive';
 import { MapDirective } from '../shared/directives/map/map.directive';
 import { StarsDirective } from '../shared/directives/stars/stars.directive';
 import { OrderByPipe } from '../shared/pipe/orderBy';
 import { SharedModule } from '../shared/shared.module';
-import {
-  NewcarrierModal,
-  SendCarrierModal,
-  SyncModal,
-} from './components/modals';
 import { MainRoutingModule } from './main-routing.module';
 import { MainComponent } from './main.component';
 import { CarrierPage } from './pages/carrier/carrier.page';
 import { DestinationPage } from './pages/destination/destination.page';
 import { FullscreenPage } from './pages/fullscreen/fullscreen.page';
 import { FullscreenSecondPage } from './pages/fullscreenSecond/fullscreenSecond.page';
+import { HomePage } from './pages/home/home.page';
 import { LacitePage } from './pages/lacite/lacite.page';
 import { ServicesPage } from './pages/services/services.page';
 import { SpacesPage } from './pages/spaces/spaces.page';
@@ -29,6 +23,7 @@ import { ToolboxPage } from './pages/toolbox/toolbox.page';
     ServicesPage,
     LacitePage,
     SpacesPage,
+    HomePage,
     DestinationPage,
     FullscreenPage,
     FullscreenSecondPage,
@@ -36,9 +31,6 @@ import { ToolboxPage } from './pages/toolbox/toolbox.page';
     ToolboxPage,
     MapDirective,
     StarsDirective,
-    NewcarrierModal,
-    SendCarrierModal,
-    SyncModal,
     ExpandableDirective,
     OrderByPipe,
   ],

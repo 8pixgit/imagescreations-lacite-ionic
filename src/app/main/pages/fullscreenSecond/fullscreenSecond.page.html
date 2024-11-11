@@ -1,15 +1,13 @@
 <app-header></app-header>
 <ion-content>
-
   <ion-icon (click)="closePage()" name="close-outline"></ion-icon>
 
   <div class="video-container">
-    <!-- <video #videoSecond autoplay loop playsinline preload="auto">
-       <source
-         src="{{ user.lang === 'fr' ? 'assets/video/citedescongres-film-livraisonHD-FR.mp4' : 'assets/video/citedescongres-film-livraisonHD-ENG.mp4' }}">
-     </video>-->
+    <video #videoSecond autoplay loop playsinline preload="auto">
+      <source
+        src="{{ user.lang === 'fr' ? 'assets/video/citedescongres-film-livraisonHD-FR.mp4' : 'assets/video/citedescongres-film-livraisonHD-ENG.mp4' }}"
+      />
+    </video>
   </div>
   <div *ngIf="!showVideo" class="background"></div>
-
 </ion-content>
-

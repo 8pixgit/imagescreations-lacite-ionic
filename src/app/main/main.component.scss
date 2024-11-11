@@ -1,4 +1,3 @@
-
 ion-tabs {
   ion-tab-bar {
     max-width: 100%;
@@ -20,15 +19,16 @@ ion-tabs {
         transform: skewX(15deg) !important;
       }
 
-      &[aria-selected=true] {
-        background-color: var(--primary);
+      &.tab-selected {
+        --background: var(--primary);
 
         ion-label {
-          color: white;
+          --color: white !important;
+          color: white !important;
         }
 
         &:last-of-type:after {
-          background-color: var(--primary);
+          --background: var(--primary);
         }
       }
 
@@ -59,4 +59,3 @@ ion-item.item:hover {
 .hidden .tabbar {
   display: none;
 }
-

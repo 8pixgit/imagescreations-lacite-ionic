@@ -60,7 +60,7 @@ export class MainComponent {
 
   openPage(page: string): void {
     this.menu.close('menu');
-    this.router.navigate(['/main' + page]);
+    this.router.navigate([page]);
   }
 
   logout(): void {

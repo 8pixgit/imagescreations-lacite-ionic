@@ -101,7 +101,7 @@ export class ServicesPage implements OnInit, OnDestroy {
 
   public activeSpace(id: string): void {
     if (id === 'ate') {
-      this.router.navigate(['/main/spaces']);
+      this.router.navigate(['/spaces']);
     } else {
       if (this.slides) {
         this.slides.slideTo(0, 500);
@@ -133,7 +133,7 @@ export class ServicesPage implements OnInit, OnDestroy {
     this.currentPage = page;
     console.log('goToService', page);
     if (page === 'ate') {
-      this.router.navigate(['/main/spaces']);
+      this.router.navigate(['/spaces']);
     } else {
       this.loadFiles(this.currentPage);
       this.activeSpace(page);

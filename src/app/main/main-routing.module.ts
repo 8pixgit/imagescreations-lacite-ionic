@@ -5,6 +5,7 @@ import { CarrierPage } from './pages/carrier/carrier.page';
 import { DestinationPage } from './pages/destination/destination.page';
 import { FullscreenPage } from './pages/fullscreen/fullscreen.page';
 import { FullscreenSecondPage } from './pages/fullscreenSecond/fullscreenSecond.page';
+import { HomePage } from './pages/home/home.page';
 import { LacitePage } from './pages/lacite/lacite.page';
 import { ServicesPage } from './pages/services/services.page';
 import { SpacesPage } from './pages/spaces/spaces.page';
@@ -15,6 +16,10 @@ const routes: Routes = [
     path: '',
     component: MainComponent,
     children: [
+      {
+        path: '',
+        component: HomePage,
+      },
       {
         path: 'destination',
         component: DestinationPage,

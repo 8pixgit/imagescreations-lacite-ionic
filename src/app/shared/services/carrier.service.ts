@@ -1,21 +1,26 @@
 import * as _ from 'lodash';
 
-
-import {AngularFirestore, AngularFirestoreCollection} from '@angular/fire/compat/firestore';
-import {Carrier, FileI, User} from '../interfaces';
-import {HttpClient} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {TranslateService} from '@ngx-translate/core';
-import {AfsService, UserService} from '../services';
-import {AlertController, ModalController, ToastController} from '@ionic/angular';
-import {EventService} from './event.service';
-import {NewcarrierModal, SendCarrierModal} from '../../main/components/modals';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import {
+  AngularFirestore,
+  AngularFirestoreCollection,
+} from '@angular/fire/compat/firestore';
+import {
+  AlertController,
+  ModalController,
+  ToastController,
+} from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
+import { NewcarrierModal, SendCarrierModal } from '../components/modals';
+import { Carrier, FileI, User } from '../interfaces';
+import { AfsService, UserService } from '../services';
+import { EventService } from './event.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CarrierService {
-
   count;
   currentUser;
   private usersCollection: AngularFirestoreCollection<User>;
@@ -29,7 +34,7 @@ export class CarrierService {
     private readonly afs: AngularFirestore,
     private toastCtrl: ToastController,
     private translate: TranslateService,
-    private user: UserService,
+    private user: UserService
   ) {
     this.currentUser = {
       email: this.user.email,
@@ -53,7 +58,7 @@ export class CarrierService {
       if (typeof file === 'object') {
         this.addFile(file, availableCarrier);
       } else {
-        this.addFile({type: 'url', url: file}, availableCarrier);
+        this.addFile({ type: 'url', url: file }, availableCarrier);
       }
     } else {
       this.newCarrier(file);
@@ -72,7 +77,9 @@ export class CarrierService {
           text: this.translate.instant('CARRIER_DELETE'),
           handler: () => {
             this.currentUser.carriers.splice(carrierIndex, 1);
-            this.usersCollection.doc<User>(this.currentUser.id).update(this.currentUser)
+            this.usersCollection
+              .doc<User>(this.currentUser.id)
+              .update(this.currentUser)
               .then(async () => {
                 const toast = await this.toastCtrl.create({
                   message: this.translate.instant('CARRIER_DELETED'),
@@ -101,7 +108,9 @@ export class CarrierService {
     this.currentUser.carriers[carrierIndex].files.forEach((file: FileI, i) => {
       if (file.path === filePath) {
         this.currentUser.carriers[carrierIndex].files.splice(i, 1);
-        this.usersCollection.doc<User>(this.currentUser.id).update(this.currentUser)
+        this.usersCollection
+          .doc<User>(this.currentUser.id)
+          .update(this.currentUser)
           .then(async () => {
             const toast = await this.toastCtrl.create({
               message: this.translate.instant('CARRIER_DELETE_FILE'),
@@ -124,21 +133,21 @@ export class CarrierService {
   }
 
   public async editCarrier(carrierIndex: number) {
-    const modal = await this.modalCtrl.create(
-      {
-        component: NewcarrierModal,
-        cssClass: 'modal-css',
-        componentProps: {
-          title: this.currentUser.carriers[carrierIndex].title,
-          note: this.currentUser.carriers[carrierIndex].note
-        },
-      }
-    );
+    const modal = await this.modalCtrl.create({
+      component: NewcarrierModal,
+      cssClass: 'modal-css',
+      componentProps: {
+        title: this.currentUser.carriers[carrierIndex].title,
+        note: this.currentUser.carriers[carrierIndex].note,
+      },
+    });
     modal.onDidDismiss().then((data: any) => {
       if (data) {
         this.currentUser.carriers[carrierIndex].note = data.note;
         this.currentUser.carriers[carrierIndex].title = data.title;
-        this.usersCollection.doc<User>(this.currentUser.id).update(this.currentUser)
+        this.usersCollection
+          .doc<User>(this.currentUser.id)
+          .update(this.currentUser)
           .then(async () => {
             const toast = await this.toastCtrl.create({
               message: this.translate.instant('CARRIER_EDITED'),
@@ -164,10 +173,17 @@ export class CarrierService {
   public loadCarrier(): void {
     this.count = 0;
     if (this.user.email) {
-      const user = _.filter(this.afsService.users, (user: User) => user.email === this.user.email)[0];
+      const user = _.filter(
+        this.afsService.users,
+        (user: User) => user.email === this.user.email
+      )[0];
       this.currentUser = user;
       this.currentUser.carriers = user.carriers || [];
-      this.currentUser.carriers = _.orderBy(this.currentUser.carriers, 'creationDate', 'desc');
+      this.currentUser.carriers = _.orderBy(
+        this.currentUser.carriers,
+        'creationDate',
+        'desc'
+      );
       this.currentUser.carriers.forEach((carrier: Carrier) => {
         if (!carrier.lock && carrier.files) {
           this.count = carrier.files.length;
@@ -190,12 +206,18 @@ export class CarrierService {
         carrier.lock = true;
       });
     }
-    this.usersCollection.doc<User>(this.currentUser.id).update(this.currentUser)
+    this.usersCollection
+      .doc<User>(this.currentUser.id)
+      .update(this.currentUser)
       .then(async () => {
         if (!closeAll) {
           const toast = await this.toastCtrl.create({
             duration: 3000,
-            message: this.translate.instant(this.currentUser.carriers[carrierIndex].lock ? 'CARRIER_LOCK' : 'CARRIER_UNLOCK'),
+            message: this.translate.instant(
+              this.currentUser.carriers[carrierIndex].lock
+                ? 'CARRIER_LOCK'
+                : 'CARRIER_UNLOCK'
+            ),
             position: 'top',
           });
           toast.present();
@@ -213,13 +235,11 @@ export class CarrierService {
   }
 
   public async newCarrier(file?: FileI) {
-    const modal = await this.modalCtrl.create(
-      {
-        component: NewcarrierModal,
-        cssClass: 'modal-css',
-        componentProps: {},
-      }
-    );
+    const modal = await this.modalCtrl.create({
+      component: NewcarrierModal,
+      cssClass: 'modal-css',
+      componentProps: {},
+    });
     modal.onDidDismiss().then((data: any) => {
       this.lockCarrier(null, true);
       if (data) {
@@ -230,7 +250,9 @@ export class CarrierService {
           note: data.note,
           title: data.title,
         });
-        this.usersCollection.doc<User>(this.currentUser.id).update(this.currentUser)
+        this.usersCollection
+          .doc<User>(this.currentUser.id)
+          .update(this.currentUser)
           .then(async () => {
             if (file) {
               this.addFile(file, 0);
@@ -251,20 +273,22 @@ export class CarrierService {
             });
             toast.present();
           });
-        this.currentUser.carriers = _.orderBy(this.currentUser.carriers, ['creationDate'], ['desc']);
+        this.currentUser.carriers = _.orderBy(
+          this.currentUser.carriers,
+          ['creationDate'],
+          ['desc']
+        );
       }
     });
     await modal.present();
   }
 
   public async sendCarrier(carrierIndex: number) {
-    const modal = await this.modalCtrl.create(
-      {
-        component: SendCarrierModal,
-        cssClass: 'modal-css',
-        componentProps: {},
-      }
-    );
+    const modal = await this.modalCtrl.create({
+      component: SendCarrierModal,
+      cssClass: 'modal-css',
+      componentProps: {},
+    });
     modal.onDidDismiss().then((data: any) => {
       {
         if (data) {
@@ -283,38 +307,51 @@ export class CarrierService {
               }
             }
             // eslint-disable-next-line max-len
-            data.message += `<br>● <a href='${file.downloadUrl || file.url}'>${title || file.name || file.url.replace('http://', '').replace('https://', '')}</a>`;
+            data.message += `<br>● <a href='${file.downloadUrl || file.url}'>${
+              title ||
+              file.name ||
+              file.url.replace('http://', '').replace('https://', '')
+            }</a>`;
           });
           data.message += '<br><br><br>';
-          this.http.post('https://us-central1-la-cite-e6908.cloudfunctions.net/sendEmail', {
-            cc: data.cc ? [this.user.email, data.cc] : [this.user.email],
-            message: data.message,
-            recipients: data.recipients,
-            user: {
-              email: this.user.email,
-              message: data.message,
-              name: `${this.currentUser.firstname} ${this.currentUser.lastname}`,
-              role: this.user.lang === 'fr' ? this.currentUser.role : this.currentUser.englishRole,
-              tel: this.currentUser.tel,
-            },
-          }).subscribe(
-            async () => {
-              const toast = await this.toastCtrl.create({
-                duration: 3000,
-                message: this.translate.instant('CARRIER_SENT'),
-                position: 'top',
-              });
-              toast.present();
-            },
-            async () => {
-              const toast = await this.toastCtrl.create({
-                cssClass: 'error',
-                duration: 3000,
-                message: this.translate.instant('CARRIER_ERROR'),
-                position: 'top',
-              });
-              toast.present();
-            });
+          this.http
+            .post(
+              'https://us-central1-la-cite-e6908.cloudfunctions.net/sendEmail',
+              {
+                cc: data.cc ? [this.user.email, data.cc] : [this.user.email],
+                message: data.message,
+                recipients: data.recipients,
+                user: {
+                  email: this.user.email,
+                  message: data.message,
+                  name: `${this.currentUser.firstname} ${this.currentUser.lastname}`,
+                  role:
+                    this.user.lang === 'fr'
+                      ? this.currentUser.role
+                      : this.currentUser.englishRole,
+                  tel: this.currentUser.tel,
+                },
+              }
+            )
+            .subscribe(
+              async () => {
+                const toast = await this.toastCtrl.create({
+                  duration: 3000,
+                  message: this.translate.instant('CARRIER_SENT'),
+                  position: 'top',
+                });
+                toast.present();
+              },
+              async () => {
+                const toast = await this.toastCtrl.create({
+                  cssClass: 'error',
+                  duration: 3000,
+                  message: this.translate.instant('CARRIER_ERROR'),
+                  position: 'top',
+                });
+                toast.present();
+              }
+            );
         }
       }
     });
@@ -334,7 +371,9 @@ export class CarrierService {
     });
     if (!exist) {
       this.currentUser.carriers[carrierIndex].files.push(file);
-      this.usersCollection.doc<User>(this.currentUser.id).update(this.currentUser)
+      this.usersCollection
+        .doc<User>(this.currentUser.id)
+        .update(this.currentUser)
         .then(async () => {
           const toast = await this.toastCtrl.create({
             message: this.translate.instant('CARRIER_OK'),
@@ -363,5 +402,4 @@ export class CarrierService {
       toast.present();
     }
   }
-
 }

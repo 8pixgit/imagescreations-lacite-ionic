@@ -8,12 +8,6 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     canLoad: [LoadGuard],
     path: '',
-    loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
-  },
-  {
-    canActivate: [AuthGuard],
-    canLoad: [LoadGuard],
-    path: 'main',
     loadChildren: () => import('./main/main.module').then((m) => m.MainModule),
   },
   {
