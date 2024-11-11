@@ -1,32 +1,31 @@
-import {NgModule} from '@angular/core';
-import {IonicModule} from '@ionic/angular';
-import {MainComponent} from './main.component';
-import {CommonModule} from '@angular/common';
-import {TranslateModule} from '@ngx-translate/core';
-import {HomePage} from './pages/home/home.page';
-import {MainRoutingModule} from './main-routing.module';
-import {ServicesPage} from './pages/services/services.page';
-import {LacitePage} from './pages/lacite/lacite.page';
-import {SpacesPage} from './pages/spaces/spaces.page';
-import {DestinationPage} from './pages/destination/destination.page';
-import {SwiperModule} from 'swiper/angular';
-import {MapDirective} from '../shared/directives/map/map.directive';
-import {StarsDirective} from '../shared/directives/stars/stars.directive';
-import {NgxMapboxGLModule} from 'ngx-mapbox-gl';
-import {HeaderComponent} from './components/header/header.component';
-import {FullscreenPage} from './pages/fullscreen/fullscreen.page';
-import {FullscreenSecondPage} from './pages/fullscreenSecond/fullscreenSecond.page';
-import {CarrierPage} from './pages/carrier/carrier.page';
-import {ToolboxPage} from './pages/toolbox/toolbox.page';
-import {NewcarrierModal, SendCarrierModal, SyncModal} from './components/modals';
-import {FormsModule} from '@angular/forms';
-import {ExpandableDirective} from "../shared/directives/expandable/expandable.directive";
-import {OrderByPipe} from "../shared/pipe/orderBy";
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
+import { ExpandableDirective } from '../shared/directives/expandable/expandable.directive';
+import { MapDirective } from '../shared/directives/map/map.directive';
+import { StarsDirective } from '../shared/directives/stars/stars.directive';
+import { OrderByPipe } from '../shared/pipe/orderBy';
+import { SharedModule } from '../shared/shared.module';
+import {
+  NewcarrierModal,
+  SendCarrierModal,
+  SyncModal,
+} from './components/modals';
+import { MainRoutingModule } from './main-routing.module';
+import { MainComponent } from './main.component';
+import { CarrierPage } from './pages/carrier/carrier.page';
+import { DestinationPage } from './pages/destination/destination.page';
+import { FullscreenPage } from './pages/fullscreen/fullscreen.page';
+import { FullscreenSecondPage } from './pages/fullscreenSecond/fullscreenSecond.page';
+import { LacitePage } from './pages/lacite/lacite.page';
+import { ServicesPage } from './pages/services/services.page';
+import { SpacesPage } from './pages/spaces/spaces.page';
+import { ToolboxPage } from './pages/toolbox/toolbox.page';
 
 @NgModule({
   declarations: [
     MainComponent,
-    HomePage,
     ServicesPage,
     LacitePage,
     SpacesPage,
@@ -37,7 +36,6 @@ import {OrderByPipe} from "../shared/pipe/orderBy";
     ToolboxPage,
     MapDirective,
     StarsDirective,
-    HeaderComponent,
     NewcarrierModal,
     SendCarrierModal,
     SyncModal,
@@ -45,18 +43,14 @@ import {OrderByPipe} from "../shared/pipe/orderBy";
     OrderByPipe,
   ],
   imports: [
-    CommonModule,
-    IonicModule,
-    TranslateModule,
+    SharedModule,
     MainRoutingModule,
-    SwiperModule,
     NgxMapboxGLModule.withConfig({
-      accessToken: 'pk.eyJ1IjoiamJ6Nzk3IiwiYSI6ImNqaGJ5bnVsczA5c3czNm4zcnI3ZjExbTAifQ.nGGXLdpBEGtRRo6Va3gOVw',
+      accessToken:
+        'pk.eyJ1IjoiamJ6Nzk3IiwiYSI6ImNqaGJ5bnVsczA5c3czNm4zcnI3ZjExbTAifQ.nGGXLdpBEGtRRo6Va3gOVw',
     }),
-    FormsModule,
   ],
   providers: [],
-  bootstrap: [MainComponent]
+  bootstrap: [MainComponent],
 })
-export class MainModule {
-}
+export class MainModule {}

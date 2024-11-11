@@ -1,9 +1,19 @@
-import {Component, ViewChild} from '@angular/core';
-import {TranslateService} from '@ngx-translate/core';
-import {IonTabs, MenuController, ModalController, Platform} from '@ionic/angular';
-import {AfsService, CarrierService, EventService, UserService} from '../shared/services';
-import {Event, NavigationEnd, Router} from '@angular/router';
-import {environment} from '../../environments/environment';
+import { Component, ViewChild } from '@angular/core';
+import { Event, NavigationEnd, Router } from '@angular/router';
+import {
+  IonTabs,
+  MenuController,
+  ModalController,
+  Platform,
+} from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
+import { environment } from '../../environments/environment';
+import {
+  AfsService,
+  CarrierService,
+  EventService,
+  UserService,
+} from '../shared/services';
 
 @Component({
   selector: 'app-auth',
@@ -50,13 +60,11 @@ export class MainComponent {
 
   openPage(page: string): void {
     this.menu.close('menu');
-    this.router.navigate([page]);
+    this.router.navigate(['/main' + page]);
   }
 
   logout(): void {
     this.user.logout();
     this.router.navigate(['auth/signin']);
   }
-
-
 }

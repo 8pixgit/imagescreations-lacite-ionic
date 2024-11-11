@@ -1,16 +1,21 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Event, NavigationEnd, NavigationError, NavigationStart, Router} from '@angular/router';
-import {EventService, UserService} from '../../../shared/services';
-import {TranslateService} from '@ngx-translate/core';
-import {MenuController, ModalController} from '@ionic/angular';
-import {SyncModal} from '../modals';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  Event,
+  NavigationEnd,
+  NavigationError,
+  NavigationStart,
+  Router,
+} from '@angular/router';
+import { MenuController, ModalController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
+import { EventService, UserService } from '../../../shared/services';
+import { SyncModal } from '../modals';
 
 @Component({
   selector: 'app-header',
   templateUrl: 'header.component.html',
   styleUrls: ['header.component.scss'],
 })
-
 export class HeaderComponent implements OnInit, OnDestroy {
   public currentPage: string;
   public lang = 'fr';
@@ -23,9 +28,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private translate: TranslateService,
     private modalCtrl: ModalController,
     private translateService: TranslateService,
-    private menu: MenuController) {
+    private menu: MenuController
+  ) {
     this.lang = translateService.currentLang;
-    translate.onLangChange.subscribe(lang => {
+    translate.onLangChange.subscribe((lang) => {
       this.lang = lang.lang;
     });
     this.event.gestureDblclickObserve().subscribe((uiHidden) => {
@@ -48,15 +54,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
-  ngOnDestroy() {
-  }
+  ngOnDestroy() {}
 
   openPage(page: string): void {
     this.currentPage = page;
-    this.router.navigate([page]);
+    this.router.navigate(['/main' + page]);
   }
 
   changeLang(lang: string): void {
@@ -67,15 +71,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   async openSync() {
-    const modal = await this.modalCtrl.create(
-      {
-        component: SyncModal,
-        cssClass: 'modal-css',
-        componentProps: {},
-      }
-    );
-    modal.onDidDismiss().then((data: any) => {
+    const modal = await this.modalCtrl.create({
+      component: SyncModal,
+      cssClass: 'modal-css',
+      componentProps: {},
     });
+    modal.onDidDismiss().then((data: any) => {});
     await modal.present();
   }
 

@@ -71,10 +71,10 @@
   "SYNC_MAIN_SEVERAL": "fichiers traités",
   "SYNC_NEW_ONE": "nouveau fichier téléchargé",
   "SYNC_NEW_SEVERAL": "nouveaux fichiers téléchargés",
-  "TABS_1": "Destination Nantes & St-Nazaire",
-  "TABS_2": "Destination engagée",
-  "TABS_3": "Sites privatisables",
-  "TABS_4": "Votre événement sur-mesure",
+  "TABS_1": "Destination Nantes",
+  "TABS_2": "La Cité des Congrès",
+  "TABS_3": "Espaces",
+  "TABS_4": "Services",
   "TOOLBOX_TAB1": "Destination",
   "TOOLBOX_TITLE": "Boite à outils"
 }

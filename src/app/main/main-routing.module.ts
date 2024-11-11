@@ -1,14 +1,14 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {HomePage} from './pages/home/home.page';
-import {MainComponent} from './main.component';
-import {DestinationPage} from './pages/destination/destination.page';
-import {ServicesPage} from './pages/services/services.page';
-import {LacitePage} from './pages/lacite/lacite.page';
-import {FullscreenPage} from './pages/fullscreen/fullscreen.page';
-import {FullscreenSecondPage} from './pages/fullscreenSecond/fullscreenSecond.page';
-import {CarrierPage} from './pages/carrier/carrier.page';
-import {ToolboxPage} from './pages/toolbox/toolbox.page';
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { MainComponent } from './main.component';
+import { CarrierPage } from './pages/carrier/carrier.page';
+import { DestinationPage } from './pages/destination/destination.page';
+import { FullscreenPage } from './pages/fullscreen/fullscreen.page';
+import { FullscreenSecondPage } from './pages/fullscreenSecond/fullscreenSecond.page';
+import { LacitePage } from './pages/lacite/lacite.page';
+import { ServicesPage } from './pages/services/services.page';
+import { SpacesPage } from './pages/spaces/spaces.page';
+import { ToolboxPage } from './pages/toolbox/toolbox.page';
 
 const routes: Routes = [
   {
@@ -16,51 +16,43 @@ const routes: Routes = [
     component: MainComponent,
     children: [
       {
-        path: '',
-        component: HomePage
-      },
-      {
         path: 'destination',
-        component: DestinationPage
+        component: DestinationPage,
       },
       {
         path: 'services',
-        component: ServicesPage
+        component: ServicesPage,
       },
       {
         path: 'spaces',
-        component: ServicesPage
+        component: SpacesPage,
       },
       {
         path: 'lacite',
-        component: LacitePage
+        component: LacitePage,
       },
       {
         path: 'fullscreen',
-        component: FullscreenPage
+        component: FullscreenPage,
       },
       {
         path: 'fullscreenSecond',
-        component: FullscreenSecondPage
+        component: FullscreenSecondPage,
       },
       {
         path: 'toolbox',
-        component: ToolboxPage
+        component: ToolboxPage,
       },
       {
         path: 'carrier',
-        component: CarrierPage
+        component: CarrierPage,
       },
-    ]
+    ],
   },
-
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forChild(routes)
-  ],
-  exports: [RouterModule]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
-export class MainRoutingModule {
-}
+export class MainRoutingModule {}
