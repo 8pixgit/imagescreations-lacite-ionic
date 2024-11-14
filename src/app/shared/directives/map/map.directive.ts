@@ -1,14 +1,13 @@
+import { Component, Input } from '@angular/core';
 import * as _ from 'lodash';
-import {Component, Input} from '@angular/core';
-import {Layer, LngLat, LngLatBounds, Map} from 'mapbox-gl';
-import {Point} from '../../interfaces';
-import {AfsService, EventService, UserService} from '../../services';
-import {POINTS_TYPES} from '../../constants';
-import {Network} from '@capacitor/network';
+import { Layer, LngLat, LngLatBounds, Map } from 'mapbox-gl';
+import { POINTS_TYPES } from '../../constants';
+import { Point } from '../../interfaces';
+import { AfsService, EventService, UserService } from '../../services';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
-  selector: 'map',
+  selector: 'map-carte',
   templateUrl: './map.directive.html',
   styleUrls: ['map.directive.scss'],
 })
@@ -33,7 +32,6 @@ export class MapDirective {
     private event: EventService,
     public user: UserService
   ) {
-
     this.categories = {
       'must-see': false,
       'pre-post-tour': false,
@@ -61,12 +59,15 @@ export class MapDirective {
     this.event.langChangedObserve().subscribe(() => this.loadPoints());
   }
 
-
   public activeCategory(categoryID: string): void {
     this.option = categoryID;
     this.starsFilter = null;
     this.activeCat(this.option);
-    const points = _.filter(this.afsService.points, (point: Point) => point.category === categoryID || point.otherCategory === categoryID);
+    const points = _.filter(
+      this.afsService.points,
+      (point: Point) =>
+        point.category === categoryID || point.otherCategory === categoryID
+    );
     if (points.length > 0) {
       this.loadPoints();
     } else {
@@ -95,31 +96,37 @@ export class MapDirective {
   }
 
   public noTransformRequest(url: string): { url: string } {
-    return {url};
+    return { url };
   }
 
   public transformRequest(url: string, resourceType: string): { url: string } {
     if (resourceType === 'Style') {
       url = url.replace('v10', 'v11');
     }
-    return {url: url.replace('https://api.mapbox.com', 'http://localhost:8100/assets/map')};
+    return {
+      url: url.replace(
+        'https://api.mapbox.com',
+        'http://localhost:8100/assets/map'
+      ),
+    };
   }
 
   public zoomChange(): void {
     this.zoom = this.map.getZoom();
   }
 
-
   /*ngOnDestroy() {
     this.event.unsubscribe('gesture:dblclick');
   }*/
 
   private loadPoints(): void {
-
     const layers = this.map.getStyle().layers;
     layers.forEach((layer: Layer) => {
       if (layer.type === 'symbol') {
-        this.map.setLayoutProperty(layer.id, 'text-field', ['get', `name_${this.user.lang}`]);
+        this.map.setLayoutProperty(layer.id, 'text-field', [
+          'get',
+          `name_${this.user.lang}`,
+        ]);
       }
     });
 
@@ -137,9 +144,18 @@ export class MapDirective {
         }
       });
       // eslint-disable-next-line max-len
-      this.points = _.filter(this.afsService.points, (point: Point) => this.categories[point.category] || this.categories[point.otherCategory]);
+      this.points = _.filter(
+        this.afsService.points,
+        (point: Point) =>
+          this.categories[point.category] ||
+          this.categories[point.otherCategory]
+      );
     } else {
-      this.points = _.filter(this.afsService.points, (point: Point) => point.category === 'hotel' && point.stars === this.starsFilter);
+      this.points = _.filter(
+        this.afsService.points,
+        (point: Point) =>
+          point.category === 'hotel' && point.stars === this.starsFilter
+      );
     }
     this.getLocalUrl();
     let isOnActive = false;
@@ -157,67 +173,77 @@ export class MapDirective {
         padding: 30,
       });
     }
-
   }
 
   private activeCat(category: string): void {
-
     if (category === 'hebergements') {
       category = 'hotel';
     } else if (category === 'accessibility') {
       category = '';
     }
-// eslint-disable-next-line max-len
-    this.categories['must-see'] = this.categories['pre-post-tour'] = this.categories.gala = this.categories.sites = this.categories.hotel = this.categories.other = category.length <= 0;
+    // eslint-disable-next-line max-len
+    this.categories['must-see'] =
+      this.categories['pre-post-tour'] =
+      this.categories.gala =
+      this.categories.sites =
+      this.categories.hotel =
+      this.categories.other =
+        category.length <= 0;
     if (category !== 'pre-post-tour') {
       this.categories['pre-post-tour'] = false;
     }
     this.categories[category] = true;
-
   }
 
   private loadSources(): void {
-    const metersToPixelsAtMaxZoom = (meters, latitude) => meters / 0.5 / Math.cos(latitude * Math.PI / 180);
+    const metersToPixelsAtMaxZoom = (meters, latitude) =>
+      meters / 0.5 / Math.cos((latitude * Math.PI) / 180);
 
     this.map.addSource('source_circle', {
       data: {
         type: 'FeatureCollection',
-        features: [{
-          geometry: {
-            type: 'Point',
-            coordinates: [-1.5425, 47.2129],
+        features: [
+          {
+            geometry: {
+              type: 'Point',
+              coordinates: [-1.5425, 47.2129],
+            },
+            properties: {},
+            type: 'Feature',
           },
-          properties: {},
-          type: 'Feature',
-        }],
+        ],
       },
       type: 'geojson',
     });
     this.map.addSource('source_circle2', {
       data: {
         type: 'FeatureCollection',
-        features: [{
-          geometry: {
-            type: 'Point',
-            coordinates: [-1.5422, 47.2100],
+        features: [
+          {
+            geometry: {
+              type: 'Point',
+              coordinates: [-1.5422, 47.21],
+            },
+            properties: {},
+            type: 'Feature',
           },
-          properties: {},
-          type: 'Feature',
-        }],
+        ],
       },
       type: 'geojson',
     });
     this.map.addSource('source_circle3', {
       data: {
         type: 'FeatureCollection',
-        features: [{
-          geometry: {
-            type: 'Point',
-            coordinates: [-1.5423, 47.2035],
+        features: [
+          {
+            geometry: {
+              type: 'Point',
+              coordinates: [-1.5423, 47.2035],
+            },
+            properties: {},
+            type: 'Feature',
           },
-          properties: {},
-          type: 'Feature',
-        }],
+        ],
       },
       type: 'geojson',
     });
@@ -241,11 +267,9 @@ export class MapDirective {
     this.map.addLayer({
       id: 'text1',
       layout: {
-        'text-font': [
-          'DIN Offc Pro Medium',
-          'Arial Unicode MS Bold',
-        ],
-        'text-field': this.user.lang === 'fr' ? '5 minutes à pied' : '5 minutes by foot',
+        'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
+        'text-field':
+          this.user.lang === 'fr' ? '5 minutes à pied' : '5 minutes by foot',
         'text-size': {
           stops: [
             [11.8, 0],
@@ -277,11 +301,9 @@ export class MapDirective {
     this.map.addLayer({
       id: 'text2',
       layout: {
-        'text-font': [
-          'DIN Offc Pro Medium',
-          'Arial Unicode MS Bold',
-        ],
-        'text-field': this.user.lang === 'fr' ? '15 minutes à pied' : '15 minutes by foot',
+        'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
+        'text-field':
+          this.user.lang === 'fr' ? '15 minutes à pied' : '15 minutes by foot',
         'text-size': {
           stops: [
             [11.8, 0],
@@ -298,14 +320,12 @@ export class MapDirective {
 
   private getLocalUrl(): void {
     this.points.forEach(async (point: Point) => {
-
       if (point.file) {
         const folder = point.file.path.slice(0, point.file.path.indexOf('/'));
         const path = point.file.path.slice(point.file.path.indexOf('/') + 1);
         // @ts-ignore
         point.file.localUrl = await this.afsService.getUri(`${folder}/${path}`);
       }
-
     });
   }
 }

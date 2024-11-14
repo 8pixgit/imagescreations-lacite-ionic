@@ -1,11 +1,14 @@
 <app-header></app-header>
 <ion-content>
-
   <div *ngIf="!currentPage" class="container">
     <div class="wrapper">
-      <div (click)="goToService(service.id)" *ngFor="let service of servicesCategories; let i = index" class="box">
+      <div
+        (click)="goToService(service.id)"
+        *ngFor="let service of servicesCategories; let i = index"
+        class="box"
+      >
         <div class="content">
-          <img [src]="'assets/icon/services/' + service.icon">
+          <img [src]="'assets/icon/services/' + service.icon" />
           <p>{{ user.lang === 'fr' ? service.label : service.englishLabel }}</p>
         </div>
       </div>
@@ -19,47 +22,73 @@
      </div>
    </div>-->
 
-  <div *ngIf="currentPage && (user.lang === 'fr' ? documentsNb.fr > 0 : documentsNb.en > 0)" class="actions">
-    <ion-button (click)="documentsOpen = documentsOpen ? !documentsOpen : true" *ngIf="documents.length"
-                [ngClass]="{ 'active': documentsOpen }" class="send-button round" color="primary">
-      <img class="send" src="assets/icon/send.png">
+  <div
+    *ngIf="currentPage && (user.lang === 'fr' ? documentsNb.fr > 0 : documentsNb.en > 0)"
+    class="actions"
+  >
+    <ion-button
+      (click)="documentsOpen = documentsOpen ? !documentsOpen : true"
+      *ngIf="documents.length"
+      [ngClass]="{ 'active': documentsOpen }"
+      class="send-button round"
+      color="primary"
+    >
+      <img class="send" src="assets/icon/send.png" />
       {{ 'DESTINATION_SEND' | translate }}
-      <img class="icon" src="assets/icon/arrow_b.png">
+      <img class="icon" src="assets/icon/arrow_b.png" />
     </ion-button>
   </div>
 
   <ion-list *ngIf="currentPage && documentsOpen" class="documentsList">
-    <div *ngFor="let document of documents | orderBy: 'name' : false : true" class="list">
+    <div
+      *ngFor="let document of documents | orderBy: 'name' : false : true"
+      class="list"
+    >
       <ion-item *ngIf="document.language.toLowerCase() === user.lang">
-        <a (click)="openDocument($event, document)" [href]="document.localUrl"
-           target="_blank">{{ document.name }}</a>
-        <img (click)="carrier.addToCarrier(document)" class="icon" src="assets/icon/send.png">
+        <a
+          (click)="openDocument($event, document)"
+          [href]="document.localUrl"
+          target="_blank"
+          >{{ document.name }}</a
+        >
+        <img
+          (click)="carrier.addToCarrier(document)"
+          class="icon"
+          src="assets/icon/send.png"
+        />
       </ion-item>
     </div>
   </ion-list>
 
-  <swiper (swiper)="setSwiperInstance($event)" *ngIf="currentPage" [config]="{autoHeight: true}" class="slide-zoom">
-
+  <swiper
+    (swiper)="setSwiperInstance($event)"
+    *ngIf="currentPage"
+    [config]="{autoHeight: true}"
+    class="slide-zoom"
+  >
     <ng-template *ngFor="let photo of photos" swiperSlide>
-      <div (press)="photoPressed(photo)"
-           [ngStyle]="{'background-image':'linear-gradient(-180deg, transparent 80%, rgba(40, 40, 40, 0.8) 100%), url(' + photo.localUrl + ')'}"
-           class="image"></div>
+      <div
+        (press)="photoPressed(photo)"
+        [ngStyle]="{'background-image':'linear-gradient(-180deg, transparent 80%, rgba(40, 40, 40, 0.8) 100%), url(' + photo.localUrl + ')'}"
+        class="image"
+      ></div>
       <div class="legend">
         <p>{{ user.lang === 'fr' ? photo.legend1 : photo.englishLegend1 }}</p>
-        <span *ngIf="user.lang === 'fr' ? photo.legend2 : photo.englishLegend2">|</span>
-        <p
-          *ngIf="user.lang === 'fr' ? photo.legend2 : photo.englishLegend2">{{ user.lang === 'fr' ? photo.legend2 : photo.englishLegend2 }}</p>
+        <span *ngIf="user.lang === 'fr' ? photo.legend2 : photo.englishLegend2"
+          >|</span
+        >
+        <p *ngIf="user.lang === 'fr' ? photo.legend2 : photo.englishLegend2">
+          {{ user.lang === 'fr' ? photo.legend2 : photo.englishLegend2 }}
+        </p>
       </div>
     </ng-template>
-
   </swiper>
 
-  <div *ngIf="spaces.length > 0  || spaces.length > 0 && currentPage === 'ate'" class="right-menu">
+  <!--<div *ngIf="spaces.length > 0  || spaces.length > 0 && currentPage === 'ate'" class="right-menu">
     <li (click)="activeSpace(space.id)"
         *ngFor="let space of spaces | orderBy: 'label' : false : true"
         [ngClass]="{ 'active': spaceActivated === space.id }">
       <p>{{ user.lang === 'fr' ? space.label : space.englishLabel }}</p>
     </li>
-  </div>
-
+  </div>-->
 </ion-content>

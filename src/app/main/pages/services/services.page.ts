@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FileOpener } from '@awesome-cordova-plugins/file-opener/ngx';
 import { Capacitor } from '@capacitor/core';
 import { Directory, Filesystem } from '@capacitor/filesystem';
@@ -46,7 +46,8 @@ export class ServicesPage implements OnInit, OnDestroy {
     private keysService: KeysService,
     public carrier: CarrierService,
     public user: UserService,
-    private router: Router
+    private router: Router,
+    private activeRoute: ActivatedRoute
   ) {
     this.photos = [];
     this.servicesCategories = [];
@@ -79,7 +80,13 @@ export class ServicesPage implements OnInit, OnDestroy {
     this.photos = [];
     this.spaces = [];
     this.currentPage = '';
-
+    const key = this.activeRoute.snapshot.paramMap.get('key');
+    if (key) {
+      this.currentPage = key;
+      this.loadFiles(this.currentPage);
+      this.activeSpace(this.currentPage);
+      this.loadServicesCards();
+    }
     this.isSpace = this.router.url.includes('spaces');
     if (this.isSpace) {
       this.initSpace();
@@ -135,9 +142,10 @@ export class ServicesPage implements OnInit, OnDestroy {
     if (page === 'ate') {
       this.router.navigate(['/spaces']);
     } else {
-      this.loadFiles(this.currentPage);
-      this.activeSpace(page);
-      this.loadServicesCards();
+      this.router.navigate(['/services/' + page]);
+      //this.loadFiles(this.currentPage);
+      //this.activeSpace(page);
+      //this.loadServicesCards();
     }
   }
 

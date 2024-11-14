@@ -24,12 +24,21 @@ const routes: Routes = [
         path: 'destination',
         component: DestinationPage,
       },
+
+      {
+        path: 'services/:key',
+        component: ServicesPage,
+      },
       {
         path: 'services',
         component: ServicesPage,
       },
       {
         path: 'spaces',
+        component: SpacesPage,
+      },
+      {
+        path: 'spaces/:key',
         component: SpacesPage,
       },
       {
