@@ -1,8 +1,8 @@
-import {CapacitorConfig} from '@capacitor/cli';
+import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'fr.destination-nantes.app',
-  appName: 'Destination Nantes',
+  appId: 'fr.lacite.app',
+  appName: 'La Cité',
   webDir: 'www',
 };
 
