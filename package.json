@@ -63,7 +63,7 @@
     "@angular/language-service": "^16.2.12",
     "@capacitor/cli": "^5.0.0",
     "@firebase/app-types": "0.9.0",
-    "@ionic/cli": "7.1.5",
+    "@ionic/cli": "7.2.0",
     "@types/jasmine": "5.1.2",
     "@types/jasminewd2": "~2.0.3",
     "@types/mapbox__point-geometry": "^0.1.2",
