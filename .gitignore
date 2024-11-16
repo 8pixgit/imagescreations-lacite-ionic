@@ -32,3 +32,5 @@ npm-debug.log*
 /www
 
 resources/ios/**/*
+src/assets/video/citedescongres-film-livraisonHD-ENG.mp4
+src/assets/video/citedescongres-film-livraisonHD-FR.mp4
