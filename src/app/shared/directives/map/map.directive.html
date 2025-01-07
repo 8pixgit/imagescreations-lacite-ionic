@@ -16,11 +16,7 @@
     </mgl-marker>
     <ng-container>
       <mgl-marker #myMarker [lngLat]="[point.coord.lng, point.coord.lat]">
-        <div
-          *ngIf="(point.category === 'gala' && point.otherCategory === 'must-see') || (point.otherCategory === 'gala' && point.category === 'must-see');else other_content">
-          <ion-icon name="ticket-outline"></ion-icon>
-          <ion-icon name="wine-outline"></ion-icon>
-        </div>
+
         <ng-template #other_content>
           <ion-icon [name]="pointsTypes[point.category].icon"
                     class="{{point.category}} star{{ point.stars }}"></ion-icon>

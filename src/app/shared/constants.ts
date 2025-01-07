@@ -31,31 +31,31 @@ export const POINTS_TYPES = [
 
   {
     englishLabel: 'Advantages',
-    icon: 'local_activity',
+    icon: 'ticket-outline',
     id: 'must-see',
     label: 'Les atouts',
   },
   {
     englishLabel: 'Hotels',
-    icon: 'hotel',
+    icon: 'bed-outline',
     id: 'hotel',
     label: 'Hôtels',
   },
   {
     englishLabel: 'Gala evenings',
-    icon: 'local_bar',
+    icon: 'wine-outline',
     id: 'gala',
     label: 'Soirées de gala',
   },
   {
     englishLabel: 'Pre post tour',
-    icon: 'place',
+    icon: 'pin-outline',
     id: 'pre-post-tour',
     label: 'Pre post tour',
   },
   {
     englishLabel: 'Other',
-    icon: 'fiber_manual_record',
+    icon: 'radio-button-on-outline',
     id: 'other',
     label: 'Autre',
   },
